@@ -3,8 +3,9 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebaseinstagram/controllers/storage_methods.dart';
 import 'package:firebaseinstagram/models/post.dart';
-import 'package:firebaseinstagram/resources/storage_methods.dart';
+
 import 'package:uuid/uuid.dart';
 
 class FirestoreMethods {
@@ -21,7 +22,7 @@ class FirestoreMethods {
   ) async{
     String res = "Some error occurred";
     try{
-      String photoUrl = await StorageMethods().uploadImageToStorage("posts", file, true);
+      String photoUrl = await StorageMethods().uploadImageToStorage("postsi", file, true);
       String postId = const Uuid().v1();
       Post post = Post(
         description: description,
@@ -34,7 +35,7 @@ class FirestoreMethods {
         likes: []
       );
 
-      _firestore.collection("posts").doc(postId).set(post.toJson());
+      _firestore.collection("postsi").doc(postId).set(post.toJson());
 
       res = "success";
 
@@ -47,7 +48,7 @@ class FirestoreMethods {
   // Delete a post
   Future<void> deletePost(String postId) async{
     try{
-      await _firestore.collection("posts").doc(postId).delete();
+      await _firestore.collection("postsi").doc(postId).delete();
     }catch(e){
       print(e.toString());
     }
@@ -58,11 +59,11 @@ class FirestoreMethods {
   Future<void> likePost(String postId, String uid, List likes) async{
     try{
       if(likes.contains(uid)){
-        await _firestore.collection("posts").doc(postId).update({
+        await _firestore.collection("postsi").doc(postId).update({
           'likes' : FieldValue.arrayRemove([uid]),
         });
       }else{
-        await _firestore.collection("posts").doc(postId).update({
+        await _firestore.collection("postsi").doc(postId).update({
           'likes' : FieldValue.arrayUnion([uid]),
         });
       }
@@ -79,7 +80,7 @@ class FirestoreMethods {
         // if the likes list contains the user uid, we need to remove it
         String commentId = const Uuid().v1();
         _firestore
-            .collection('posts')
+            .collection('postsi')
             .doc(postId)
             .collection('comments')
             .doc(commentId)

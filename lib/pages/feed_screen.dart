@@ -26,10 +26,13 @@ class FeedScrenn extends StatelessWidget {
             ],
           ),
           body: StreamBuilder(
-            stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+            stream: FirebaseFirestore.instance.collection('postsi').snapshots(),
             builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
               if(snapshot.connectionState == ConnectionState.waiting){
                 return const Center(child: CircularProgressIndicator(),);
+              }
+              if(!snapshot.hasData){
+                return const Center(child: Text("Không có dữ liệu"),);
               }
               return ListView.builder(
                   itemCount: snapshot.data!.docs.length,

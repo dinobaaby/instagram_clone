@@ -1,9 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:firebaseinstagram/resources/auth_methods.dart';
 import 'package:firebaseinstagram/responsive/mobile_screen_layout.dart';
 import 'package:firebaseinstagram/responsive/responsive_layout_screen.dart';
-import 'package:firebaseinstagram/screens/login_screen.dart';
 import 'package:firebaseinstagram/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:firebaseinstagram/utils/colors.dart';
@@ -11,8 +9,10 @@ import 'package:firebaseinstagram/widgets/text_field_input.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../controllers/auth_methods.dart';
 import '../responsive/web_screen_layout.dart';
 import '../utils/global_variable.dart';
+import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});

@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebaseinstagram/resources/auth_methods.dart';
-import 'package:firebaseinstagram/resources/firestore_methods.dart';
-import 'package:firebaseinstagram/screens/login_screen.dart';
+
 import 'package:firebaseinstagram/utils/colors.dart';
 import 'package:firebaseinstagram/utils/utils.dart';
 import 'package:firebaseinstagram/widgets/follow_button.dart';
 import 'package:flutter/material.dart';
+
+import '../controllers/auth_methods.dart';
+import '../controllers/firestore_methods.dart';
+import 'login_screen.dart';
 
 
 class ProfileScreen extends StatefulWidget {
@@ -37,11 +39,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       isLoading  = true;
     });
     try{
-      var userSnap =  await FirebaseFirestore.instance.collection("users").doc(widget.uid).get();
+      var userSnap =  await FirebaseFirestore.instance.collection("usersi").doc(widget.uid).get();
       
       var postSnap = await FirebaseFirestore
           .instance
-          .collection("posts")
+          .collection("postsi")
           .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
       postLength = postSnap.docs.length;

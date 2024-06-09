@@ -2,8 +2,9 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebaseinstagram/controllers/storage_methods.dart';
 import 'package:firebaseinstagram/models/user.dart' as model;
-import 'package:firebaseinstagram/resources/storage_methods.dart';
+
 
 
 class AuthMethods {
@@ -14,7 +15,7 @@ class AuthMethods {
   Future<model.User> getUserDetails() async {
     User? currentUser = _auth.currentUser;
     if (currentUser != null) {
-      DocumentSnapshot snap = await _firestore.collection("users").doc(currentUser.uid).get();
+      DocumentSnapshot snap = await _firestore.collection("usersi").doc(currentUser.uid).get();
       return model.User.fronSnap(snap);
     } else {
       throw Exception("Current user is null.");
@@ -54,7 +55,7 @@ class AuthMethods {
           following: [],
         );
 
-        await _firestore.collection("users").doc(cred.user!.uid).set(user.toJson());
+        await _firestore.collection("usersi").doc(cred.user!.uid).set(user.toJson());
 
         res = "success";
       }
@@ -92,7 +93,7 @@ class AuthMethods {
 }
 
 //
-// await _firestore.collection("users").add({
+// await _firestore.collection("usersi").add({
 //   'username' : username,
 //   'uid' : cred.user!.uid,
 //   'email': email,

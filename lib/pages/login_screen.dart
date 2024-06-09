@@ -1,5 +1,5 @@
-import 'package:firebaseinstagram/resources/auth_methods.dart';
-import 'package:firebaseinstagram/screens/sigup_screen.dart';
+
+import 'package:firebaseinstagram/pages/sigup_screen.dart';
 import 'package:firebaseinstagram/utils/colors.dart';
 import 'package:firebaseinstagram/utils/global_variable.dart';
 import 'package:firebaseinstagram/utils/utils.dart';
@@ -7,6 +7,7 @@ import 'package:firebaseinstagram/widgets/text_field_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../controllers/auth_methods.dart';
 import '../responsive/mobile_screen_layout.dart';
 import '../responsive/responsive_layout_screen.dart';
 import '../responsive/web_screen_layout.dart';

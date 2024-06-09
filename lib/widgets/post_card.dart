@@ -3,15 +3,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebaseinstagram/models/user.dart';
 import 'package:firebaseinstagram/providers/user_provider.dart';
-import 'package:firebaseinstagram/resources/firestore_methods.dart';
-import 'package:firebaseinstagram/screens/comment_screen.dart';
-import 'package:firebaseinstagram/screens/login_screen.dart';
 import 'package:firebaseinstagram/utils/colors.dart';
 import 'package:firebaseinstagram/utils/utils.dart';
 import 'package:firebaseinstagram/widgets/like_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import '../controllers/firestore_methods.dart';
+import '../pages/comment_screen.dart';
+import '../pages/login_screen.dart';
 
 class PostCard extends StatefulWidget {
   final snap;
@@ -34,7 +35,7 @@ class _PostCardState extends State<PostCard> {
   }
   void getComments() async {
     try{
-      QuerySnapshot snap = await FirebaseFirestore.instance.collection('posts').doc(widget.snap['postId']).collection('comments').get();
+      QuerySnapshot snap = await FirebaseFirestore.instance.collection('postsi').doc(widget.snap['postId']).collection('comments').get();
       commentLen = snap.docs.length;
     }catch(e){
       showSankBar(e.toString(), context);
@@ -50,6 +51,7 @@ class _PostCardState extends State<PostCard> {
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context).getUser;
     if(user != null){
+
 
     }else{
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
@@ -214,14 +216,11 @@ class _PostCardState extends State<PostCard> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DefaultTextStyle(
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2!
-                        .copyWith(fontWeight: FontWeight.w800),
-                    child: Text('${widget.snap['likes'].length} likes',
-                        style: Theme.of(context).textTheme.bodyText2),
-                  ),
+                  // DefaultTextStyle(
+                  //
+                  //   child: Text('${widget.snap['likes'].length} likes',
+                  //       style: Theme.of(context).textTheme.bodyMedium),
+                  // ),
                   Container(
                     width: double.infinity,
                     padding:const EdgeInsets.only(
